@@ -1,47 +1,35 @@
-import { DataTypes, Model, CreationOptional } from 'sequelize';
-import { sequelize } from './index.js';
+import { Model, DataTypes } from 'sequelize';
+import { sequelize } from '../config/config.js';
 
-interface PrinterAttributes {
-  id?: number;
-  name: string;
-  description: string;
-  status?: 'ready' | 'busy';
-}
-
-class Printer extends Model<PrinterAttributes> implements PrinterAttributes {
-  public id: CreationOptional<number>;
+class Printer extends Model {
+  public id!: number;
   public name!: string;
-  public description!: string;
-  public status: 'ready' | 'busy';
+  public model!: string;
+  public status!: 'ready' | 'busy';
 }
 
-Printer.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    status: {
-      type: DataTypes.ENUM('ready', 'busy'),
-      allowNull: false,
-      defaultValue: 'ready',
-    },
+Printer.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
   },
-  {
-    sequelize,
-    modelName: 'Printer',
-    tableName: 'printers',
-    timestamps: true,
-  }
-);
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  model: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  status: {
+    type: DataTypes.ENUM('ready', 'busy'),
+    defaultValue: 'ready',
+  },
+}, {
+  sequelize,
+  tableName: 'printers',
+  timestamps: true,
+});
 
-export default Printer;
+export { Printer };

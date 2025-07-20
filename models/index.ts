@@ -1,33 +1,32 @@
-import { Sequelize } from 'sequelize';
-import config from '../config/config.js';
+import { Printer } from './printer';
+import { Job } from './job';
+import { Queue } from './queue.js';
+import { sequelize } from '../config/config.js';
 
-const sequelize = new Sequelize(
-  config.DB_NAME,
-  config.DB_USER,
-  config.DB_PASSWORD,
-  {
-    host: config.DB_HOST,
-    port: config.DB_PORT,
-    dialect: 'postgres',
-    logging: false,
-  }
-);
+// Установка ассоциаций
+function setupAssociations() {
+  Printer.hasMany(Queue, { foreignKey: 'printerId' });
+  Job.hasOne(Queue, { foreignKey: 'jobId' });
+  Queue.belongsTo(Printer, { foreignKey: 'printerId' });
+  Queue.belongsTo(Job, { foreignKey: 'jobId' });
+}
 
-export { sequelize };
+export {
+  sequelize,
+  Printer,
+  Job,
+  Queue,
+  setupAssociations
+};
 
-export default async function initializeModels() {
-  const Printer = await import('./printer.js');
-  const Job = await import('./job.js');
-  const Queue = await import('./queue.js');
+export enum PrinterStatus {
+  READY = 'ready',
+  BUSY = 'busy',
+}
 
-  // await sequelize.sync();
-  // return sequelize;
-
-  const models = {
-    Printer,
-    Job,
-    Queue,
-  };
-
-return models;
+export enum JobStatus {
+  QUEUED = 'queued',
+  PRINTING = 'printing',
+  COMPLETED = 'completed',
+  FAILED = 'failed',
 }

@@ -1,18 +1,30 @@
-import app from './app.js';
-import config from './config/config.js';
+import express from 'express';
+import { sequelize, setupAssociations } from './models';
+import router from './routes';
 
-const PORT = config.PORT;
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.use(express.json());
+
+async function initializeApp() {
+  try {
+    await sequelize.authenticate();
+    setupAssociations();
+    await sequelize.sync({ alter: true });
+    
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Database connection failed:', error);
+    process.exit(1);
+  }
+}
+
+app.use('/', router);
+app.get('/', (req, res) => {
+  res.send('Print Queue Management API');
 });
 
-// import { createServer } from 'node:http'
-
-// const server = createServer((req, res) => {
-//   res.end('Hello World')
-// })
-
-// server.listen(3000, () => {
-//   console.log('Server running at http://localhost:3000')
-// })
+initializeApp();

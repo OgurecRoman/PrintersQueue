@@ -1,59 +1,50 @@
-import { DataTypes, Model, CreationOptional } from 'sequelize';
-import { sequelize } from './index.js';
-import Job from './job.js';
-import Printer from './printer.js';
+import { Model, DataTypes } from 'sequelize';
+import { sequelize } from '../config/config.js';
+import { Printer } from './printer';
+import { Job } from './job';
 
-interface QueueAttributes {
-  id: number;
-  jobId: number;
-  printerId: number;
-  position: number;
-}
-
-class Queue extends Model<QueueAttributes> implements QueueAttributes {
-  public id!: CreationOptional<number>;
-  public jobId!: number;
+class Queue extends Model {
+  public id!: number;
   public printerId!: number;
+  public jobId!: number;
   public position!: number;
+
+  public readonly job?: Job;
 }
 
-Queue.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    jobId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'jobs',
-        key: 'id',
-      },
-    },
-    printerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'printers',
-        key: 'id',
-      },
-    },
-    position: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+Queue.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  printerId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Printer,
+      key: 'id',
     },
   },
-  {
-    sequelize,
-    modelName: 'Queue',
-    tableName: 'queues',
-    timestamps: true,
-  }
-);
+  jobId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    unique: true,
+    references: {
+      model: Job,
+      key: 'id',
+    },
+  },
+  position: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+}, {
+  sequelize,
+  tableName: 'queue_items',
+  timestamps: true,
+});
 
-Queue.belongsTo(Job, { foreignKey: 'jobId' });
-Queue.belongsTo(Printer, { foreignKey: 'printerId' });
+Queue.belongsTo(Job, { foreignKey: 'jobId', as: 'job' });
 
-export default Queue;
+export { Queue };
