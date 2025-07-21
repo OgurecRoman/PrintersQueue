@@ -8,7 +8,7 @@ function setupAssociations() {
   Printer.hasMany(Queue, { foreignKey: 'printerId' });
   Job.hasOne(Queue, { foreignKey: 'jobId' });
   Queue.belongsTo(Printer, { foreignKey: 'printerId' });
-  Queue.belongsTo(Job, { foreignKey: 'jobId' });
+  Queue.belongsTo(Job, { foreignKey: 'jobId', as: 'job' });
 }
 
 export {

@@ -28,6 +28,7 @@ Printer.init({
   },
 }, {
   sequelize,
+  modelName: 'Printer',
   tableName: 'printers',
   timestamps: true,
 });

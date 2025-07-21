@@ -33,6 +33,7 @@ Job.init({
   },
 }, {
   sequelize,
+  modelName: 'Jobs',
   tableName: 'jobs',
   timestamps: true,
 });

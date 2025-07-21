@@ -24,7 +24,7 @@ async function initializeApp() {
 
 app.use('/', router);
 app.get('/', (req, res) => {
-  res.send('Print Queue Management API');
+  res.send('Пожалуйста возьмите меня в RTU IT Lab я буду очень стараться правда т_т');
 });
 
 initializeApp();

@@ -8,8 +8,6 @@ class Queue extends Model {
   public printerId!: number;
   public jobId!: number;
   public position!: number;
-
-  public readonly job?: Job;
 }
 
 Queue.init({
@@ -41,10 +39,9 @@ Queue.init({
   },
 }, {
   sequelize,
-  tableName: 'queue_items',
+  modelName: 'Queue',
+  tableName: 'queue',
   timestamps: true,
 });
-
-Queue.belongsTo(Job, { foreignKey: 'jobId', as: 'job' });
 
 export { Queue };
