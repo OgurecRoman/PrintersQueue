@@ -3,9 +3,8 @@
   "scripts": {
     "start": "tsx server.ts",
     "test": "jest --coverage",
-    "test:watch": "jest --watch",
     "test:unit": "jest tests/unit --coverage",
-    "test:integration": "docker-compose up -d db-test && jest tests/integration"
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",

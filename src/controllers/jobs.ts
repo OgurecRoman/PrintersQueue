@@ -84,6 +84,11 @@ export const getJobStatus = async (req: Request, res: Response) => {
         });
     }
 };
+
+interface JobQueue {
+  [position: number]: Job | null;
+}
+
 export const getPrinterQueue = async (req: Request, res: Response) => {
   try {
     const printerId = parseInt(req.params.printerId);
@@ -92,7 +97,7 @@ export const getPrinterQueue = async (req: Request, res: Response) => {
       where: { printerId },
     });
 
-    const queue = {}
+    const queue: JobQueue = {}
 
     for (let i=0;i<queueItems.length;i++){
       const job = await Job.findByPk(Number(queueItems[i].getDataValue("jobId")));
