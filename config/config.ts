@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
+import { JwtPayload } from 'jsonwebtoken';
 
 dotenv.config();
 
@@ -11,3 +12,11 @@ export const sequelize = new Sequelize({
   dialect: 'postgres',
   logging: false,
 });
+
+declare global {
+    namespace Express {
+        interface Request {
+            user?: string | JwtPayload;
+        }
+    }
+}

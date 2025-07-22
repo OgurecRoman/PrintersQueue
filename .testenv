@@ -1,0 +1,8 @@
+PORT=3000
+DB_NAME=printersDB
+DB_USER=postgres
+DB_PASSWORD=password
+DB_HOST=localhost
+DB_PORT=5432
+JWT_SECRET=please-take-me-to-work-i-will-work-very-hardly
+AUTH_PASSWORD=111

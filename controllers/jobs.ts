@@ -1,6 +1,5 @@
 import { Queue } from '../models/queue.js';
 import { Request, Response } from 'express';
-import { sequelize } from '../config/config.js';
 import { Job } from '../models/job.js';
 import { Printer } from '../models/printer.js';
 

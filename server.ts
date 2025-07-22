@@ -1,11 +1,22 @@
 import express from 'express';
 import { sequelize, setupAssociations } from './models';
 import router from './routes';
+import { authenticateToken } from './middlewares/auth';
+import * as authController from './controllers/auth.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+
+app.post('/login', authController.login);
+
+app.use(authenticateToken);
+
+app.use('/', router);
+app.get('/', (req, res) => {
+  res.send('Пожалуйста возьмите меня в RTU IT Lab я буду очень стараться правда т_т');
+});
 
 async function initializeApp() {
   try {
@@ -21,10 +32,5 @@ async function initializeApp() {
     process.exit(1);
   }
 }
-
-app.use('/', router);
-app.get('/', (req, res) => {
-  res.send('Пожалуйста возьмите меня в RTU IT Lab я буду очень стараться правда т_т');
-});
 
 initializeApp();
