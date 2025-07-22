@@ -49,13 +49,13 @@ npm start
 
 # Примеры запросов в Postman
 
-![Главная страница: требуется авторизация](images/postman/1.png)
-![Логин: требуется пароль](images/postman/2.png)
-![Логин: получение токена](images/postman/3.png)
-![Главная страница](images/postman/4.png)
-![Создание принтера](images/postman/5.png)
-![Получение списка принтеров](images/postman/6.png)
-![Статус конкретного принтера](images/postman/7.png)
-![Создание задания на печать](images/postman/8.png)
-![Статус задания](images/postman/9.png)
-![Очередь заданий к принтеру](images/postman/10.png)
+![Главная страница: требуется авторизация](images/postman/1.jpg)
+![Логин: требуется пароль](images/postman/2.jpg)
+![Логин: получение токена](images/postman/3.jpg)
+![Главная страница](images/postman/4.jpg)
+![Создание принтера](images/postman/5.jpg)
+![Получение списка принтеров](images/postman/6.jpg)
+![Статус конкретного принтера](images/postman/7.jpg)
+![Создание задания на печать](images/postman/8.jpg)
+![Статус задания](images/postman/9.jpg)
+![Очередь заданий к принтеру](images/postman/10.jpg)
