@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Printer } from '../models/printer.js';
+import { Printer } from '../models/printer';
 
 export const createPrinter = async (req: Request, res: Response) => {
     try {

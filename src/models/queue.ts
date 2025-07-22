@@ -1,7 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../config/config.js';
-import { Printer } from './printer';
-import { Job } from './job';
+import { Printer } from './printer.js';
+import { Job } from './job.js';
 
 class Queue extends Model {
   public id!: number;

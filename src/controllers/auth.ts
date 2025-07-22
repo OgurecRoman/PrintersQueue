@@ -18,7 +18,7 @@ export const login = async (req: Request, res: Response) => {
     }
 
     if (password !== PASSWORD) {
-        return res.status(401).json({ error: 'Неверные учетные данные' });
+        return res.status(401).json({ error: 'invalid password' });
     }
 
     const token = jwt.sign(

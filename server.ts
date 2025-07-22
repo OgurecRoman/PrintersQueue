@@ -1,8 +1,8 @@
 import express from 'express';
-import { sequelize, setupAssociations } from './models';
-import router from './routes';
-import { authenticateToken } from './middlewares/auth';
-import * as authController from './controllers/auth.js';
+import { sequelize, setupAssociations } from './src/models';
+import router from './src/routes';
+import { authenticateToken } from './src/middlewares/auth';
+import * as authController from './src/controllers/auth.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,7 +15,7 @@ app.use(authenticateToken);
 
 app.use('/', router);
 app.get('/', (req, res) => {
-  res.send('Пожалуйста возьмите меня в RTU IT Lab я буду очень стараться правда т_т');
+  res.send('Я очень хочу в RTU IT Lab я буду очень стараться правда т_т');
 });
 
 async function initializeApp() {
